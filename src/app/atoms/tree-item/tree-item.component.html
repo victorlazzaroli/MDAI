@@ -1,0 +1,9 @@
+<div class="w-full py-1 px-1 overflow-hidden cursor-pointer hover:bg-slate-600 hover:outline-2" *ngIf="item" (click)="open()">
+  <span [ngClass]="{'invisible': item.type === 'file'}" class="ms-[5px]">
+    <ng-icon *ngIf="item?.expanded" name="matExpandMoreSharp" size="16px"></ng-icon>
+    <ng-icon *ngIf="!item?.expanded" name="matExpandLessSharp" size="16px"></ng-icon>
+  </span>
+  <span class="overflow-hidden overflow-ellipsis">
+    {{item.name}}
+  </span>
+</div>

@@ -1,0 +1,11 @@
+<button (click)="buttonPress($event)" [disabled]="disabled" [ngClass]="{
+          'border-2 border-solid': theme == 'outline',
+          'bg-slate-800 text-slate-200 dark:bg-slate-200 dark:text-slate-800': theme == 'fill',
+          'bg-slate-500': selected,
+          'cursor-not-allowed': disabled}"
+        [type]="type"
+        class="rounded dark:border-slate-200 border-slate-800 flex items-start"
+        style="height: {{sizeToPx[size]}}"
+>
+    <ng-icon name="{{icon}}" size="{{sizeToPx[size]}}" ></ng-icon>
+</button>
