@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {ITreeItem} from "../../atoms/tree-item/tree-item.component";
-import {traverseTreeAndCall} from "./tree-list.utils";
+import {mapPostTree} from "./tree-list.utils";
 
 @Component({
   selector: 'app-tree-list',
@@ -28,7 +28,7 @@ export class TreeListComponent {
     if (itemSelected?.type === 'file') {
       return this.openNote.emit(itemSelected);
     } else if (Array.isArray(itemSelected.items) && itemSelected.items.length > 0) {
-      this.tree.items[index] = traverseTreeAndCall(itemSelected, (item: ITreeItem) => this.itemClickClbk(item, !!itemSelected.expanded))
+      this.tree.items[index] = mapPostTree(itemSelected, (item: ITreeItem) => this.itemClickClbk(item, !!itemSelected.expanded))
     }
   }
 }

@@ -3,8 +3,9 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 export interface ITreeItem {
   type: 'root' | 'folder' | 'file',
   name: string,
+  parentId: string | null,
+  id: string,
   items?: ITreeItem[],
-  id?: string,
   expanded?: boolean
 }
 
