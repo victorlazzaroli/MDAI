@@ -31,6 +31,8 @@ import { TreeListComponent } from './molecules/tree-list/tree-list.component';
 import { TreeItemComponent } from './atoms/tree-item/tree-item.component'
 import {StoreModule} from "@ngrx/store";
 import {StoreDevtoolsModule} from "@ngrx/store-devtools";
+import {notesReducer} from "./store/notes.reducer";
+import {HttpClientModule} from "@angular/common/http";
 
 const icons = {
   matHomeSharp,
@@ -65,8 +67,9 @@ const icons = {
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     NgIconsModule.withIcons(icons),
-    StoreModule.forRoot(),
+    StoreModule.forRoot({notes: notesReducer}),
     StoreDevtoolsModule.instrument({}),
   ],
   providers: [],

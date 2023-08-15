@@ -8,6 +8,14 @@ import {
   showTree
 } from "../../molecules/tree-list/tree-list.utils";
 import {ITreeItem} from "../../atoms/tree-item/tree-item.component";
+import {notesToTreeItem} from "./notes-sidebar.utils";
+import {Notes} from "../../shared/mocks/Notes";
+import {Note} from "../../shared/models/note.model";
+import {map, Observable, of} from "rxjs";
+import {NotesService} from "../../shared/services/notes.service";
+import {Store} from "@ngrx/store";
+import {NotesActions, NotesApiActions} from "../../store/notes.actions";
+import {selectNotes} from "../../store/notes.selectors";
 
 @Component({
   selector: 'app-notes-sidebar',
@@ -18,20 +26,26 @@ export class NotesSidebarComponent implements OnInit {
   @Input()
   bookname: string = 'Notes';
 
-  protected readonly TreeListMock = TreeListMock;
+  notesTree$: Observable<ITreeItem> | undefined;
+
+  constructor(
+    private noteService: NotesService,
+    private store: Store) {
+    this.notesTree$ = this.store
+      .select(selectNotes)
+      .pipe(map(notes => notesToTreeItem([...notes])))
+  }
 
   ngOnInit() {
+    this.noteService
+      .getNotes()
+      .subscribe(notes => {
+        this.store.dispatch(NotesApiActions.retrievedNoteList({notes}))
+      });
 
-    // showTree(TreeListMock);
-    const newEl: ITreeItem = {
-      name: 'Nuovo elemento',
-      type: 'file',
-      id: '78',
-      parentId: '5'
-    }
+  }
 
-    const clone = deepCopySerializableTree(TreeListMock);
-    console.log(pruneTreeItem(clone, '5'))
-    console.log({TreeListMock, clone});
+  newNote(): void {
+
   }
 }

@@ -1,6 +1,6 @@
 <div class="flex flex-col w-full bg-slate-800 text-slate-100 h-full">
   <div class="flex justify-center items-center px-2 py-1 text-slate-200 gap-4">
-    <app-icon-button size="small" icon="matEditNoteSharp"></app-icon-button>
+    <app-icon-button size="small" icon="matEditNoteSharp" (click)="newNote()"></app-icon-button>
     <app-icon-button size="small" icon="matFolderOpenSharp"></app-icon-button>
     <app-icon-button size="small" icon="matSortSharp"></app-icon-button>
   </div>
@@ -8,6 +8,6 @@
     <strong class="ms-4">{{bookname}}</strong>
   </div>
   <div class="flex-grow">
-    <app-tree-list [tree]="TreeListMock"></app-tree-list>
+    <app-tree-list [tree]="notesTree$ | async"></app-tree-list>
   </div>
 </div>
