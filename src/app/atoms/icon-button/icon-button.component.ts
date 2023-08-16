@@ -22,6 +22,8 @@ export class IconButtonComponent {
   theme: theme = 'none';
   @Input()
   selected: boolean = false;
+  @Input()
+  fullwidth: boolean = false;
 
   @Output()
   press = new EventEmitter<Event>()

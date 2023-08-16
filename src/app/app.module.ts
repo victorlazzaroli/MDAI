@@ -22,7 +22,11 @@ import {
   matFolderOpenSharp,
   matSortSharp,
   matExpandMoreSharp,
-  matExpandLessSharp
+  matExpandLessSharp,
+  matFileOpenSharp,
+  matEditSharp,
+  matFileCopySharp,
+  matMoveDownSharp
 } from '@ng-icons/material-icons/sharp';
 import { TooltipComponent } from './atoms/tooltip/tooltip.component';
 import { TooltipDirective } from './shared/directives/tooltip.directive';
@@ -33,6 +37,7 @@ import {StoreModule} from "@ngrx/store";
 import {StoreDevtoolsModule} from "@ngrx/store-devtools";
 import {notesReducer} from "./store/notes.reducer";
 import {HttpClientModule} from "@angular/common/http";
+import { FileContextMenuComponent } from './molecules/file-context-menu/file-context-menu.component';
 
 const icons = {
   matHomeSharp,
@@ -50,7 +55,11 @@ const icons = {
   matFolderOpenSharp,
   matSortSharp,
   matExpandMoreSharp,
-  matExpandLessSharp
+  matExpandLessSharp,
+  matFileOpenSharp,
+  matEditSharp,
+  matFileCopySharp,
+  matMoveDownSharp
 };
 
 @NgModule({
@@ -62,7 +71,8 @@ const icons = {
     TooltipDirective,
     NotesSidebarComponent,
     TreeListComponent,
-    TreeItemComponent
+    TreeItemComponent,
+    FileContextMenuComponent
   ],
   imports: [
     BrowserModule,

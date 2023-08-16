@@ -1,4 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {DialogRef, DialogService} from "@ngneat/dialog";
+import {FileContextMenuComponent} from "../../molecules/file-context-menu/file-context-menu.component";
 
 export interface ITreeItem {
   type: 'root' | 'folder' | 'file',
@@ -20,12 +22,29 @@ export class TreeItemComponent {
   item: ITreeItem | null = null;
 
   @Output()
-  itemClick: EventEmitter<ITreeItem | null> = new EventEmitter<ITreeItem | null>()
+  itemClick: EventEmitter<ITreeItem | null> = new EventEmitter<ITreeItem | null>();
+
+  constructor(private dialogService: DialogService) {
+
+  }
 
   open() {
     if (this.item?.expanded != null) {
       this.item.expanded = !this.item.expanded;
     }
     this.itemClick.emit(this.item);
+  }
+
+  openContext($event: any) {
+    $event.preventDefault();
+    if(this.item?.type === 'file') {
+      const fileContextMenu = this.dialogService.open(FileContextMenuComponent, {
+        size: '200px',
+        closeButton: false,
+        backdrop: false,
+        windowClass: 'contextMenuContainer'
+      });
+      fileContextMenu.afterClosed$.subscribe(console.log);
+    }
   }
 }
