@@ -38,4 +38,6 @@ export class IconButtonComponent {
   }
 
   protected readonly matCloseSharp = matCloseSharp;
+  @Input()
+  text: string | undefined;
 }

@@ -105,8 +105,8 @@ export class NotesSidebarComponent implements OnInit {
     if(elemB.type === 'folder' && elemA.type === 'file') return 1;
 
     if (this.currentOrdering === 'DESC')
-    return elemA.name > elemB.name ? -1 : 1;
+      return elemA.name > elemB.name ? -1 : 1;
     else
-    return elemA.name < elemB.name ? -1 : 1;
+      return elemA.name < elemB.name ? -1 : 1;
   }
 }
