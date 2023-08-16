@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, ComponentRef, EventEmitter, Input, Output} from '@angular/core';
 import {DialogRef, DialogService} from "@ngneat/dialog";
 import {FileContextMenuComponent} from "../../molecules/file-context-menu/file-context-menu.component";
 
@@ -44,7 +44,12 @@ export class TreeItemComponent {
         backdrop: false,
         windowClass: 'contextMenuContainer'
       });
+      (fileContextMenu.ref as ComponentRef<HTMLDivElement>).location.nativeElement.style.position = 'fixed';
+      (fileContextMenu.ref as ComponentRef<HTMLDivElement>).location.nativeElement.style.top = $event.clientY + 'px';
+      console.log({ref: fileContextMenu.ref});
       fileContextMenu.afterClosed$.subscribe(console.log);
     }
   }
+
+  protected readonly FileContextMenuComponent = FileContextMenuComponent;
 }

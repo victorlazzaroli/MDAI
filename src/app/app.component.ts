@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {TooltipComponent} from "./atoms/tooltip/tooltip.component";
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'ai-note-taking-assistant';
+  protected readonly TooltipComponent = TooltipComponent;
 }

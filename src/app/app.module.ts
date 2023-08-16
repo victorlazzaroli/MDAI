@@ -38,6 +38,13 @@ import {StoreDevtoolsModule} from "@ngrx/store-devtools";
 import {notesReducer} from "./store/notes.reducer";
 import {HttpClientModule} from "@angular/common/http";
 import { FileContextMenuComponent } from './molecules/file-context-menu/file-context-menu.component';
+import {
+  popperVariation,
+  provideTippyConfig,
+  TippyDirective,
+  tooltipVariation,
+  withContextMenuVariation
+} from "@ngneat/helipopper";
 
 const icons = {
   matHomeSharp,
@@ -81,8 +88,18 @@ const icons = {
     NgIconsModule.withIcons(icons),
     StoreModule.forRoot({notes: notesReducer}),
     StoreDevtoolsModule.instrument({}),
+    TippyDirective,
   ],
-  providers: [],
+  providers: [
+    provideTippyConfig({
+      defaultVariation: 'tooltip',
+      variations: {
+        tooltip: tooltipVariation,
+        popper: popperVariation,
+        contextMenu: withContextMenuVariation(popperVariation)
+      }
+    })
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

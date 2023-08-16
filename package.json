@@ -21,6 +21,7 @@
     "@ng-icons/core": "^25.1.0",
     "@ng-icons/material-icons": "^25.1.0",
     "@ngneat/dialog": "^4.1.0",
+    "@ngneat/helipopper": "^8.0.2",
     "@ngrx/effects": "^16.1.0",
     "@ngrx/entity": "^16.1.0",
     "@ngrx/store": "^16.1.0",
