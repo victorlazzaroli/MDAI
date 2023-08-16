@@ -1,0 +1,9 @@
+<div class="flex flex-col w-full bg-slate-800 p-2 gap-1 shadow text-slate-200 ">
+  <app-icon-button icon="matFileOpenSharp" size="small" text="Apri in nuova scheda" (click)="openNote()"  [fullwidth]="true"></app-icon-button>
+  <hr class="bg-gray-500">
+  <app-icon-button icon="matEditSharp"  size="small" text="Rinomina" (click)="rename()" [fullwidth]="true"></app-icon-button>
+  <app-icon-button icon="matFileCopySharp" size="small" text="Copia" (click)="copy()"  [fullwidth]="true"></app-icon-button>
+  <app-icon-button icon="matMoveDownSharp" size="small" text="Sposta file in..."  (click)="move()"  [fullwidth]="true"></app-icon-button>
+  <hr class="bg-gray-500">
+  <app-icon-button icon="matDeleteSharp" size="small" text="Elimina" (click)="delete()"  [fullwidth]="true"></app-icon-button>
+</div>
