@@ -4,7 +4,7 @@ import {NotesActions, NotesApiActions} from "./notes.actions";
 
 export const initialState: ReadonlyArray<Note> = [];
 
-function syncNoteReducer (_state: ReadonlyArray<Note>, {noteId}:{noteId: string}): Note[] {
+function syncNoteReducer (_state: ReadonlyArray<Note>, {noteId}:{noteId: number}): Note[] {
  return  _state.map(note => {
     if (note.id === noteId) {note.sync = true;}
     return note;

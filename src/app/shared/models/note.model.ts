@@ -1,5 +1,5 @@
 export interface Note {
-  id: string,
+  id: number,
   title: string,
   path: string,
   sync: boolean,

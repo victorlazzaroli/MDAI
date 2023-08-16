@@ -34,6 +34,8 @@ export function notesToTreeItem(notes: Note[], bookName: string = 'Notes'): ITre
             expanded: true,
             items: []
           }
+
+          idFolder += 1;
           currentNode.items?.push(nextNode);
         }
 
@@ -43,7 +45,7 @@ export function notesToTreeItem(notes: Note[], bookName: string = 'Notes'): ITre
       const bookItem: ITreeItem = {
         type: 'file',
         name: noteitem.title,
-        id: noteitem.id,
+        id: noteitem.id.toString(),
         path: [...currentNode.path!, currentNode.items?.length || 0],
         parentId: currentNode.id
       }
