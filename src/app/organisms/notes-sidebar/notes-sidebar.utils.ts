@@ -28,7 +28,7 @@ export function notesToTreeItem(notes: Note[], bookName: string = 'Notes'): ITre
                 let currentNode = tree;
 
                 for (let elem of pathSplitted) {
-                    let nextNode = tree.items?.find(item => item.name === elem)
+                    let nextNode = currentNode.items?.find(item => item.name === elem)
 
                     if (!nextNode) {
                         nextNode = {

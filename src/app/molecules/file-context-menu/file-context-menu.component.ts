@@ -7,6 +7,7 @@ import {InputModalComponent} from "../input-modal/input-modal.component";
 import {filter} from "rxjs";
 import {NotesActions} from "../../store/notes.actions";
 import {Store} from "@ngrx/store";
+import {selectNotes} from "../../store/notes.selectors";
 
 @Component({
   selector: 'app-file-context-menu',
@@ -18,6 +19,7 @@ export class FileContextMenuComponent {
 
   tippy: TippyInstance;
   private fileItem: ITreeItem;
+  private note: Note | null;
 
   constructor(
     @Inject(TIPPY_REF) tippy: TippyInstance,
@@ -26,10 +28,20 @@ export class FileContextMenuComponent {
   ) {
     this.tippy = tippy;
     this.fileItem = tippy.data;
-    this
+    this.note = null;
+    this.store.select(selectNotes)
+        .subscribe(notes =>
+        {
+          if (Array.isArray(notes)) {
+            this.note =  notes.find(noteItem => noteItem.threeId === this.fileItem.threeId);
+          }
+        })
   }
 
   rename() {
+    if (!this.note) {
+      throw new Error('Note not found');
+    }
     this.tippy.hide();
     const renameDialog = this.dialogService.open(InputModalComponent, {
       data: {
@@ -44,21 +56,66 @@ export class FileContextMenuComponent {
     renameDialog.afterClosed$
         .pipe(filter(result => !!result))
         .subscribe(result => {
+          if (this.note) {
+            this.store.dispatch(NotesActions.editNote({note: {...this.note, title: result!}}))
+          }
         });
-    console.log('rename');
-
   }
 
   copy() {
-    console.log('copy');
+    if (!this.note) {
+      throw new Error('Note not found');
+    }
+    this.tippy.hide();
+    const copyDialog = this.dialogService.open(InputModalComponent, {
+      data: {
+        required: true,
+        modalTitle: 'Copy to path',
+        inputText: '/',
+        labelText: 'File path:'
+      },
+      enableClose: false
+    });
+
+    copyDialog.afterClosed$
+        .pipe(filter(result => !!result))
+        .subscribe(result => {
+          if (this.note) {
+            this.store.dispatch(NotesActions.addNote({note: {...this.note, path: result!}}))
+          }
+        });
   }
 
   move() {
-    console.log('move');
+    if (!this.note) {
+      throw new Error('Note not found');
+    }
+    this.tippy.hide();
+    const moveDialog = this.dialogService.open(InputModalComponent, {
+      data: {
+        required: true,
+        modalTitle: 'Move file ' + this.note.title + ' to path',
+        inputText: this.note.path,
+        labelText: 'File path:'
+      },
+      enableClose: false
+    });
+
+    moveDialog.afterClosed$
+        .pipe(filter(result => !!result))
+        .subscribe(result => {
+          if (this.note) {
+            this.store.dispatch(NotesActions.editNote({note: {...this.note, path: result!}}))
+          }
+        });
   }
 
   delete() {
-    console.log('delete');
+    if (!this.note || this.note.threeId == null) {
+      throw new Error('Note not found');
+    }
+    this.tippy.hide();
+    this.store.dispatch(NotesActions.removeNote({noteId: this.note?.threeId!}))
   }
 
   openNote() {

@@ -17,6 +17,7 @@ function editNoteReducer (_state: ReadonlyArray<Note>, {note}: {note: Note}): No
   }
 
   return _state.map(noteItem => {
+      console.log({noteItem, note})
     if (noteItem.threeId === note.threeId) {
       return {
         ...note
@@ -28,10 +29,11 @@ function editNoteReducer (_state: ReadonlyArray<Note>, {note}: {note: Note}): No
 }
 
 export const notesReducer = createReducer(
-  initialState,
-  on(NotesApiActions.retrievedNoteList, (_state, {notes}) => notes),
-  on(NotesApiActions.syncedNote, syncNoteReducer),
-  on(NotesActions.addNote, (_state, {note}) => [..._state, note]),
-  on(NotesActions.editNote, editNoteReducer)
+    initialState,
+    on(NotesApiActions.retrievedNoteList, (_state, {notes}) => notes),
+    on(NotesApiActions.syncedNote, syncNoteReducer),
+    on(NotesActions.addNote, (_state, {note}) => [..._state, note]),
+    on(NotesActions.editNote, editNoteReducer),
+    on(NotesActions.removeNote, (_state, {noteId}) => _state.filter(elem => elem.threeId !== noteId))
 );
 

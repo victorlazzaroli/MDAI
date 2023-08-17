@@ -35,15 +35,15 @@ export const Notes = [
     sync: true,
     text: 'La bamba è una droga potente da evitare assolutamente perchè oltretutto è anche costosissima'
   }, {
-    id: '5',
-    threeId: 5,
+    id: '6',
+    threeId: 6,
     title:'Assoiluto',
-    path:'/Cartella 1/',
+    path:'/Cartella 1/Cartella Depth/',
     sync: true,
     text: 'La bamba è una droga potente da evitare assolutamente perchè oltretutto è anche costosissima'
   }, {
-    id: '6',
-    threeId: 6,
+    id: '7',
+    threeId: 7,
     title:'Nota personale',
     path:'/Cartella 2/',
     sync: true,
