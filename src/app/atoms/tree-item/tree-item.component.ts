@@ -8,6 +8,7 @@ export interface ITreeItem {
   name: string,
   parentId: string | null,
   id: string,
+  arrayId: number,
   items?: ITreeItem[],
   path?: number[],
   expanded?: boolean

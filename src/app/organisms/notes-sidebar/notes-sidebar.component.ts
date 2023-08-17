@@ -6,7 +6,7 @@ import {BehaviorSubject, combineLatest, concat, map, Observable, of, Subject, ta
 import {NotesService} from "../../shared/services/notes.service";
 import {Store} from "@ngrx/store";
 import {NotesActions, NotesApiActions} from "../../store/notes.actions";
-import {selectNotes} from "../../store/notes.selectors";
+import {selectNotes, selectNumOfNotes} from "../../store/notes.selectors";
 import {findTreeItem, mapPreTree} from "../../molecules/tree-list/tree-list.utils";
 
 @Component({
@@ -19,7 +19,7 @@ export class NotesSidebarComponent implements OnInit {
   bookname: string = 'Notes';
 
   notesTree$: Observable<ITreeItem> | undefined;
-  orderedTree: Observable<ITreeItem> | undefined;
+  orderedTree$: Observable<ITreeItem> | undefined;
 
   currentOrdering: 'ASC' | 'DESC' | undefined;
 
@@ -27,15 +27,18 @@ export class NotesSidebarComponent implements OnInit {
 
   currentNoteId = 0;
   currentNewFolderId = 1;
+
+  numOfNotes = 0;
   constructor(
     private noteService: NotesService,
     private store: Store) {
+
     this.notesTree$ = this.store
       .select(selectNotes)
       .pipe(
         tap(notes => {
           for (let note of notes) {
-            this.currentNoteId = note.id > this.currentNoteId ? note.id : this.currentNoteId;
+            this.currentNoteId = note.bookId > this.currentNoteId ? note.bookId : this.currentNoteId;
             const regex = /\/Nuova Cartella (\d+)\//;
             this.currentNewFolderId = Number.parseInt(note.path.match(regex)?.[1] || '0');
           }
@@ -43,8 +46,9 @@ export class NotesSidebarComponent implements OnInit {
         map(notes => notesToTreeItem([...notes])),
       )
 
+    this.store.select(selectNumOfNotes).subscribe((result) => (this.numOfNotes = result))
 
-    this.orderedTree = combineLatest([this.notesTree$, this.orderSubject]).pipe(map(latest => {
+    this.orderedTree$ = combineLatest([this.notesTree$, this.orderSubject]).pipe(map(latest => {
       mapPreTree(latest[0], (elem) => {
         if (Array.isArray(elem?.items)) {
           elem.items.sort((elemA, elemB) => this.orderingClbk(elemA, elemB))
@@ -69,13 +73,13 @@ export class NotesSidebarComponent implements OnInit {
   newNote(): void {
     this.currentNoteId = this.currentNoteId + 1;
     const newNote: Note = {
-      id: this.currentNoteId,
+      bookId: this.currentNoteId,
       title: 'Nuova nota ' + (this.currentNoteId + 1),
       path: '/',
       sync: false,
       text: ''
     }
-    this.store.dispatch(NotesActions.addNote({noteId:newNote.id, note: newNote}))
+    this.store.dispatch(NotesActions.addNote({noteId:newNote.bookId, note: newNote}))
   }
 
   /**
@@ -85,13 +89,13 @@ export class NotesSidebarComponent implements OnInit {
     this.currentNoteId = this.currentNoteId + 1;
     this.currentNewFolderId += 1;
     const newNote: Note = {
-      id: this.currentNoteId,
+      bookId: this.currentNoteId,
       title: 'Nuova nota ' + (this.currentNoteId + 1),
       path: '/Nuova Cartella ' + this.currentNewFolderId + '/',
       sync: false,
       text: ''
     }
-    this.store.dispatch(NotesActions.addNote({noteId:newNote.id, note: newNote}))
+    this.store.dispatch(NotesActions.addNote({noteId:newNote.bookId, note: newNote}))
   }
 
   sort() {

@@ -48,6 +48,8 @@ import {
   withContextMenuVariation
 } from "@ngneat/helipopper";
 import { FolderContextMenuComponent } from './molecules/folder-context-menu/folder-context-menu.component';
+import { InputModalComponent } from './molecules/input-modal/input-modal.component';
+import {FormsModule} from "@angular/forms";
 
 const icons = {
   matHomeSharp,
@@ -85,7 +87,8 @@ const icons = {
     TreeListComponent,
     TreeItemComponent,
     FileContextMenuComponent,
-    FolderContextMenuComponent
+    FolderContextMenuComponent,
+    InputModalComponent
   ],
   imports: [
     BrowserModule,
@@ -95,6 +98,7 @@ const icons = {
     StoreModule.forRoot({notes: notesReducer}),
     StoreDevtoolsModule.instrument({}),
     TippyDirective,
+    FormsModule,
   ],
   providers: [
     provideTippyConfig({
