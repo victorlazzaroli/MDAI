@@ -1,0 +1,14 @@
+<div class="w-full bg-slate-800 p-5 flex flex-col gap-4 text-white">
+  <h2 class="text-xl">{{modalData?.modalTitle}}</h2>
+  <form (ngSubmit)="save()" class="flex flex-col gap-4">
+    <div class="w-full">
+        <label for="inputText">{{modalData?.labelText}}</label>
+        <input name="inputText" id="inputText" class="w-full mt-1 focus:outline-2 focus:outline-slate-200 bg-slate-700 py-1 px-2 rounded-md" [(ngModel)]="inputText"  #ctrl='ngModel' type="text" [required] = "!!modalData?.required">
+        <span class="inline-block text-red-500 invisible" [ngClass]="{'visilble': ctrl.invalid && ctrl.touched}"></span>
+    </div>
+    <div class="flex justify-end gap-2">
+      <button type="submit" class="px-3 py-2 bg-green-700 text-white disabled:bg-gray-300 rounded-md" [disabled] = "ctrl.invalid">Save</button>
+      <button type="button"  class="px-3 py-2 bg-slate-300 text-black rounded-md" (click)="close()">Annulla</button>
+    </div>
+  </form>
+</div>
