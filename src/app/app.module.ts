@@ -26,7 +26,9 @@ import {
   matFileOpenSharp,
   matEditSharp,
   matFileCopySharp,
-  matMoveDownSharp
+  matMoveDownSharp,
+  matCreateNewFolderSharp,
+  matNoteAddSharp
 } from '@ng-icons/material-icons/sharp';
 import { TooltipComponent } from './atoms/tooltip/tooltip.component';
 import { TooltipDirective } from './shared/directives/tooltip.directive';
@@ -45,6 +47,7 @@ import {
   tooltipVariation,
   withContextMenuVariation
 } from "@ngneat/helipopper";
+import { FolderContextMenuComponent } from './molecules/folder-context-menu/folder-context-menu.component';
 
 const icons = {
   matHomeSharp,
@@ -66,7 +69,9 @@ const icons = {
   matFileOpenSharp,
   matEditSharp,
   matFileCopySharp,
-  matMoveDownSharp
+  matMoveDownSharp,
+  matCreateNewFolderSharp,
+  matNoteAddSharp
 };
 
 @NgModule({
@@ -79,7 +84,8 @@ const icons = {
     NotesSidebarComponent,
     TreeListComponent,
     TreeItemComponent,
-    FileContextMenuComponent
+    FileContextMenuComponent,
+    FolderContextMenuComponent
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,7 @@
 import {Component, ComponentRef, EventEmitter, Input, Output} from '@angular/core';
 import {DialogRef, DialogService} from "@ngneat/dialog";
 import {FileContextMenuComponent} from "../../molecules/file-context-menu/file-context-menu.component";
+import {FolderContextMenuComponent} from "../../molecules/folder-context-menu/folder-context-menu.component";
 
 export interface ITreeItem {
   type: 'root' | 'folder' | 'file',
@@ -18,6 +19,9 @@ export interface ITreeItem {
   styleUrls: ['./tree-item.component.scss']
 })
 export class TreeItemComponent {
+  protected readonly FileContextMenuComponent = FileContextMenuComponent;
+  protected readonly FolderContextMenuComponent = FolderContextMenuComponent;
+
   @Input({required: true})
   item: ITreeItem | null = null;
 
@@ -35,21 +39,4 @@ export class TreeItemComponent {
     this.itemClick.emit(this.item);
   }
 
-  openContext($event: any) {
-    $event.preventDefault();
-    if(this.item?.type === 'file') {
-      const fileContextMenu = this.dialogService.open(FileContextMenuComponent, {
-        size: '200px',
-        closeButton: false,
-        backdrop: false,
-        windowClass: 'contextMenuContainer'
-      });
-      (fileContextMenu.ref as ComponentRef<HTMLDivElement>).location.nativeElement.style.position = 'fixed';
-      (fileContextMenu.ref as ComponentRef<HTMLDivElement>).location.nativeElement.style.top = $event.clientY + 'px';
-      console.log({ref: fileContextMenu.ref});
-      fileContextMenu.afterClosed$.subscribe(console.log);
-    }
-  }
-
-  protected readonly FileContextMenuComponent = FileContextMenuComponent;
 }

@@ -1,7 +1,8 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Inject} from '@angular/core';
 import {DialogRef} from "@ngneat/dialog";
 import {ITreeItem} from "../../atoms/tree-item/tree-item.component";
 import {Note} from "../../shared/models/note.model";
+import {TIPPY_REF, TippyInstance} from "@ngneat/helipopper";
 
 @Component({
   selector: 'app-file-context-menu',
@@ -11,27 +12,24 @@ import {Note} from "../../shared/models/note.model";
 })
 export class FileContextMenuComponent {
 
-  constructor(private ref: DialogRef<Note>) {
-    console.log(ref?.data?.title)
+  constructor(@Inject(TIPPY_REF) tippy: TippyInstance) {
+    console.log(tippy);
   }
   rename() {
     console.log('rename');
-    this.ref.close({action: 'rename', item: this.ref.data});
+
   }
 
   copy() {
     console.log('copy');
-    this.ref.close({action: 'copy', item: this.ref.data});
   }
 
   move() {
     console.log('move');
-    this.ref.close({action: 'move', item: this.ref.data});
   }
 
   delete() {
     console.log('delete');
-    this.ref.close({action: 'delete', item: this.ref.data});
   }
 
   openNote() {
