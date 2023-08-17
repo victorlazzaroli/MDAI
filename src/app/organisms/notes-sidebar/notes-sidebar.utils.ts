@@ -5,7 +5,7 @@ import {findTreeItem} from "../../molecules/tree-list/tree-list.utils";
 export function notesToTreeItem(notes: Note[], bookName: string = 'Notes'): ITreeItem {
     const tree: ITreeItem = {
         type: 'root',
-        id: '0',
+        threeId: 0,
         arrayId: -1,
         parentId: null,
         name: bookName,
@@ -34,10 +34,10 @@ export function notesToTreeItem(notes: Note[], bookName: string = 'Notes'): ITre
                         nextNode = {
                             type: 'folder',
                             name: elem,
-                            id: idFolder.toString(),
+                            threeId: idFolder,
                             arrayId: -1,
                             path: [...currentNode.path!, currentNode.items?.length || 0],
-                            parentId: currentNode.id,
+                            parentId: currentNode.threeId,
                             expanded: true,
                             items: []
                         }
@@ -52,10 +52,10 @@ export function notesToTreeItem(notes: Note[], bookName: string = 'Notes'): ITre
                 const bookItem: ITreeItem = {
                     type: 'file',
                     name: noteitem.title,
-                    id: noteitem.bookId.toString(),
+                    threeId: noteitem.threeId,
                     arrayId: list.length,
                     path: [...currentNode.path!, currentNode.items?.length || 0],
-                    parentId: currentNode.id
+                    parentId: currentNode.threeId
                 }
                 currentNode.items?.push(bookItem)
             })

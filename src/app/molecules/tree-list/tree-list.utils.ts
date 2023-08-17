@@ -63,7 +63,7 @@ export function appendTreeItem(tree: ITreeItem, item: ITreeItem): ITreeItem {
     throw new Error("Invalid item element");
   }
 
-  const parentElement = findTreeItem((tree) =>  tree.id === item.parentId, tree);
+  const parentElement = findTreeItem((tree) =>  tree.threeId === item.parentId, tree);
   if (parentElement && parentElement.type !== 'file') {
      parentElement.items = Array.isArray(parentElement.items) ? parentElement.items.concat(item) : [item];
   }
@@ -72,7 +72,7 @@ export function appendTreeItem(tree: ITreeItem, item: ITreeItem): ITreeItem {
   return tree;
 }
 
-export function pruneTreeItem(tree: ITreeItem, id: string): ITreeItem | null {
+export function pruneTreeItem(tree: ITreeItem, id: number): ITreeItem | null {
   if (!tree) {
     throw new Error("tree parameter can't be null");
   }
@@ -91,7 +91,7 @@ export function pruneTreeItem(tree: ITreeItem, id: string): ITreeItem | null {
 
     let index = 0;
     for (let item of tree.items) {
-      if(item.id === id) {
+      if(item.threeId === id) {
         foundIndex = index;
         return true;
       }

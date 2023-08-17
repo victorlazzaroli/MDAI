@@ -38,7 +38,7 @@ export class NotesSidebarComponent implements OnInit {
       .pipe(
         tap(notes => {
           for (let note of notes) {
-            this.currentNoteId = note.bookId > this.currentNoteId ? note.bookId : this.currentNoteId;
+            this.currentNoteId = note.threeId > this.currentNoteId ? note.threeId : this.currentNoteId;
             const regex = /\/Nuova Cartella (\d+)\//;
             this.currentNewFolderId = Number.parseInt(note.path.match(regex)?.[1] || '0');
           }
@@ -73,13 +73,13 @@ export class NotesSidebarComponent implements OnInit {
   newNote(): void {
     this.currentNoteId = this.currentNoteId + 1;
     const newNote: Note = {
-      bookId: this.currentNoteId,
+      threeId: this.currentNoteId,
       title: 'Nuova nota ' + (this.currentNoteId + 1),
       path: '/',
       sync: false,
       text: ''
     }
-    this.store.dispatch(NotesActions.addNote({noteId:newNote.bookId, note: newNote}))
+    this.store.dispatch(NotesActions.addNote({note: newNote}))
   }
 
   /**
@@ -89,13 +89,13 @@ export class NotesSidebarComponent implements OnInit {
     this.currentNoteId = this.currentNoteId + 1;
     this.currentNewFolderId += 1;
     const newNote: Note = {
-      bookId: this.currentNoteId,
+      threeId: this.currentNoteId,
       title: 'Nuova nota ' + (this.currentNoteId + 1),
       path: '/Nuova Cartella ' + this.currentNewFolderId + '/',
       sync: false,
       text: ''
     }
-    this.store.dispatch(NotesActions.addNote({noteId:newNote.bookId, note: newNote}))
+    this.store.dispatch(NotesActions.addNote({note: newNote}))
   }
 
   sort() {

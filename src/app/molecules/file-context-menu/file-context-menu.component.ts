@@ -4,6 +4,9 @@ import {ITreeItem} from "../../atoms/tree-item/tree-item.component";
 import {Note} from "../../shared/models/note.model";
 import {TIPPY_REF, TippyInstance} from "@ngneat/helipopper";
 import {InputModalComponent} from "../input-modal/input-modal.component";
+import {filter} from "rxjs";
+import {NotesActions} from "../../store/notes.actions";
+import {Store} from "@ngrx/store";
 
 @Component({
   selector: 'app-file-context-menu',
@@ -14,13 +17,18 @@ import {InputModalComponent} from "../input-modal/input-modal.component";
 export class FileContextMenuComponent {
 
   tippy: TippyInstance;
+  private fileItem: ITreeItem;
+
   constructor(
     @Inject(TIPPY_REF) tippy: TippyInstance,
+    private store: Store,
     private readonly dialogService: DialogService
   ) {
     this.tippy = tippy;
-    console.log(tippy);
+    this.fileItem = tippy.data;
+    this
   }
+
   rename() {
     this.tippy.hide();
     const renameDialog = this.dialogService.open(InputModalComponent, {
@@ -33,7 +41,10 @@ export class FileContextMenuComponent {
       enableClose: false
     });
 
-    renameDialog.afterClosed$.subscribe(result => console.log('modal rename ', result));
+    renameDialog.afterClosed$
+        .pipe(filter(result => !!result))
+        .subscribe(result => {
+        });
     console.log('rename');
 
   }

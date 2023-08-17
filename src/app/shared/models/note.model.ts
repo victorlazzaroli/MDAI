@@ -1,7 +1,7 @@
 export interface Note {
   id?: string,
   arrayId?: number,
-  bookId: number,
+  threeId: number,
   title: string,
   path: string,
   sync: boolean,

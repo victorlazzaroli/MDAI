@@ -6,9 +6,9 @@ import {FolderContextMenuComponent} from "../../molecules/folder-context-menu/fo
 export interface ITreeItem {
   type: 'root' | 'folder' | 'file',
   name: string,
-  parentId: string | null,
-  id: string,
-  arrayId: number,
+  parentId: number | null,
+  threeId: number, // Id of the tree elment not to be confused with the id of the note database id
+  arrayId?: number, // index of store array containing all the notes not sorted
   items?: ITreeItem[],
   path?: number[],
   expanded?: boolean
@@ -29,9 +29,6 @@ export class TreeItemComponent {
   @Output()
   itemClick: EventEmitter<ITreeItem | null> = new EventEmitter<ITreeItem | null>();
 
-  constructor(private dialogService: DialogService) {
-
-  }
 
   open() {
     if (this.item?.expanded != null) {

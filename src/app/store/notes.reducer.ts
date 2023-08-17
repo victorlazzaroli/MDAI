@@ -6,7 +6,7 @@ export const initialState: ReadonlyArray<Note> = [];
 
 function syncNoteReducer (_state: ReadonlyArray<Note>, {noteId}:{noteId: number}): Note[] {
  return  _state.map(note => {
-    if (note.bookId === noteId) {note.sync = true;}
+    if (note.threeId === noteId) {note.sync = true;}
     return note;
   }).slice()
 }
@@ -17,7 +17,7 @@ function editNoteReducer (_state: ReadonlyArray<Note>, {note}: {note: Note}): No
   }
 
   return _state.map(noteItem => {
-    if (noteItem.bookId === note.bookId) {
+    if (noteItem.threeId === note.threeId) {
       return {
         ...note
       }
