@@ -50,6 +50,7 @@ import {
 import { FolderContextMenuComponent } from './molecules/folder-context-menu/folder-context-menu.component';
 import { InputModalComponent } from './molecules/input-modal/input-modal.component';
 import {FormsModule} from "@angular/forms";
+import { ConfirmModalComponent } from './molecules/confirm-modal/confirm-modal.component';
 
 const icons = {
   matHomeSharp,
@@ -88,7 +89,8 @@ const icons = {
     TreeItemComponent,
     FileContextMenuComponent,
     FolderContextMenuComponent,
-    InputModalComponent
+    InputModalComponent,
+    ConfirmModalComponent
   ],
   imports: [
     BrowserModule,

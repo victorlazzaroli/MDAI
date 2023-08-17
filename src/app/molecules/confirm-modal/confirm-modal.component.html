@@ -1,0 +1,17 @@
+<div class="w-full bg-slate-800 p-5 flex flex-col gap-4 text-white">
+    <h2 class="text-xl">{{modalData?.modalTitle}}</h2>
+    <form (ngSubmit)="confirm()" class="flex flex-col gap-4">
+        <div class="w-full">
+            <p class="text-white">{{modalData?.messageText}}</p>
+        </div>
+        <div class="flex justify-end gap-2">
+            <button *ngIf="modalData?.confirmButtonText"
+                    type="button"
+                    class="px-3 py-2 bg-green-700 text-white disabled:bg-gray-300 rounded-md"
+                    (click)="confirm()">{{modalData?.confirmButtonText}}</button>
+            <button type="button"
+                    class="px-3 py-2 bg-slate-300 text-black rounded-md"
+                    (click)="abort()">{{modalData?.abortButtonText}}</button>
+        </div>
+    </form>
+</div>

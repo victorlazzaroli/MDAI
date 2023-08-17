@@ -8,6 +8,7 @@ import {filter} from "rxjs";
 import {NotesActions} from "../../store/notes.actions";
 import {Store} from "@ngrx/store";
 import {selectNotes} from "../../store/notes.selectors";
+import {ConfirmModalComponent} from "../confirm-modal/confirm-modal.component";
 
 @Component({
   selector: 'app-file-context-menu',
@@ -115,7 +116,23 @@ export class FileContextMenuComponent {
       throw new Error('Note not found');
     }
     this.tippy.hide();
-    this.store.dispatch(NotesActions.removeNote({noteId: this.note?.threeId!}))
+    const deleteConfirm = this.dialogService.open(ConfirmModalComponent, {
+      data: {
+        messageText: `Do you confirm delete the file ${this.note.title} ?`,
+        modalTitle: 'Delete file',
+        confirmButtonText: 'Delete',
+        abortButtonText: 'Discard'
+      },
+      enableClose: true
+    });
+
+    deleteConfirm.afterClosed$
+        .pipe(filter(result => !!result))
+        .subscribe(result => {
+          if (this.note) {
+            this.store.dispatch(NotesActions.removeNote({noteId: this.note?.threeId!}))
+          }
+        });
   }
 
   openNote() {
