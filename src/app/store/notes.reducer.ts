@@ -4,36 +4,42 @@ import {NotesActions, NotesApiActions} from "./notes.actions";
 
 export const initialState: ReadonlyArray<Note> = [];
 
-function syncNoteReducer (_state: ReadonlyArray<Note>, {noteId}:{noteId: number}): Note[] {
- return  _state.map(note => {
-    if (note.threeId === noteId) {note.sync = true;}
+function syncNoteReducer (_state: ReadonlyArray<Note>, {noteIds}:{noteIds: number[]}): Note[] {
+    if (!Array.isArray(noteIds)) {
+        return [..._state];
+    }
+    return  _state.map(note => {
+    if (noteIds.includes(note.threeId)) {note.sync = true;}
     return note;
   }).slice()
 }
 
-function editNoteReducer (_state: ReadonlyArray<Note>, {note}: {note: Note}): Note[] {
-  if(!note){
-    return [..._state];
-  }
-
-  return _state.map(noteItem => {
-      console.log({noteItem, note})
-    if (noteItem.threeId === note.threeId) {
-      return {
-        ...note
-      }
+function editNoteReducer(_state: ReadonlyArray<Note>, {notes}: { notes: Note[] }): Note[] {
+    if (!Array.isArray(notes)) {
+        return [..._state];
     }
+    const items = notes.map((note, index) => ({
+            id: note.threeId, index
+        })
+    );
+    return _state.map(noteItem => {
+        const found = items.find(item => item.id === noteItem.threeId)
+        if (found) {
+            return {
+                ...notes[found.index]
+            }
+        }
 
-    return noteItem
-  }).slice();
+        return noteItem
+    }).slice();
 }
 
 export const notesReducer = createReducer(
     initialState,
     on(NotesApiActions.retrievedNoteList, (_state, {notes}) => notes),
-    on(NotesApiActions.syncedNote, syncNoteReducer),
-    on(NotesActions.addNote, (_state, {note}) => [..._state, note]),
-    on(NotesActions.editNote, editNoteReducer),
-    on(NotesActions.removeNote, (_state, {noteId}) => _state.filter(elem => elem.threeId !== noteId))
+    on(NotesApiActions.syncedNotes, syncNoteReducer),
+    on(NotesActions.addNotes, (_state, {notes}) => [..._state, ...notes]),
+    on(NotesActions.editNotes, editNoteReducer),
+    on(NotesActions.removeNotes, (_state, {noteIds}) => _state.filter(elem => !noteIds.includes(elem.threeId)))
 );
 

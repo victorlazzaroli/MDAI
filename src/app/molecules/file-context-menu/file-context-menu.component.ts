@@ -21,6 +21,7 @@ export class FileContextMenuComponent {
   tippy: TippyInstance;
   private fileItem: ITreeItem;
   private note: Note | null;
+  private maxThreeId: number = 0;
 
   constructor(
     @Inject(TIPPY_REF) tippy: TippyInstance,
@@ -35,6 +36,7 @@ export class FileContextMenuComponent {
         {
           if (Array.isArray(notes)) {
             this.note =  notes.find(noteItem => noteItem.threeId === this.fileItem.threeId);
+            this.maxThreeId = notes.reduce((prev, curr) => curr.threeId > prev ? curr.threeId : prev, 0);
           }
         })
   }
@@ -58,7 +60,7 @@ export class FileContextMenuComponent {
         .pipe(filter(result => !!result))
         .subscribe(result => {
           if (this.note) {
-            this.store.dispatch(NotesActions.editNote({note: {...this.note, title: result!}}))
+            this.store.dispatch(NotesActions.editNotes({notes: [{...this.note, title: result!}]}))
           }
         });
   }
@@ -82,7 +84,7 @@ export class FileContextMenuComponent {
         .pipe(filter(result => !!result))
         .subscribe(result => {
           if (this.note) {
-            this.store.dispatch(NotesActions.addNote({note: {...this.note, path: result!}}))
+            this.store.dispatch(NotesActions.addNotes({notes: [{...this.note, threeId: this.maxThreeId + 1, path: result!}]}))
           }
         });
   }
@@ -106,7 +108,7 @@ export class FileContextMenuComponent {
         .pipe(filter(result => !!result))
         .subscribe(result => {
           if (this.note) {
-            this.store.dispatch(NotesActions.editNote({note: {...this.note, path: result!}}))
+            this.store.dispatch(NotesActions.editNotes({notes: [{...this.note, path: result!}]}))
           }
         });
   }
@@ -130,7 +132,7 @@ export class FileContextMenuComponent {
         .pipe(filter(result => !!result))
         .subscribe(result => {
           if (this.note) {
-            this.store.dispatch(NotesActions.removeNote({noteId: this.note?.threeId!}))
+            this.store.dispatch(NotesActions.removeNotes({noteIds: [this.note?.threeId!]}))
           }
         });
   }

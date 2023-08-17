@@ -79,7 +79,7 @@ export class NotesSidebarComponent implements OnInit {
       sync: false,
       text: ''
     }
-    this.store.dispatch(NotesActions.addNote({note: newNote}))
+    this.store.dispatch(NotesActions.addNotes({notes: [newNote]}))
   }
 
   /**
@@ -95,7 +95,7 @@ export class NotesSidebarComponent implements OnInit {
       sync: false,
       text: ''
     }
-    this.store.dispatch(NotesActions.addNote({note: newNote}))
+    this.store.dispatch(NotesActions.addNotes({notes: [newNote]}))
   }
 
   sort() {

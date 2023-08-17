@@ -48,5 +48,12 @@ export const Notes = [
     path:'/Cartella 2/',
     sync: true,
     text: 'La bamba è una droga potente da evitare assolutamente perchè oltretutto è anche costosissima'
+  }, {
+    id: '8',
+    threeId: 8,
+    title:'Cartellosa dentro cartellosa',
+    path:'/Cartella 1/Cartella Depth/Cartella 1/',
+    sync: true,
+    text: 'La bamba è una droga potente da evitare assolutamente perchè oltretutto è anche costosissima'
   }
 ]

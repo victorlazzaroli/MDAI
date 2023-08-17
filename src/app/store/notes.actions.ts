@@ -4,10 +4,10 @@ import {Note} from "../shared/models/note.model";
 export const NotesActions = createActionGroup({
   source: 'Notes',
   events: {
-    'Add Note': props<{note: Note}>(),
-    'Edit Note': props<{note: Note}>(),
-    'Remove Note': props<{noteId: number}>(),
-    'Sync Note': props<{noteId: number}>(),
+    'Add Notes': props<{notes: Note[]}>(),
+    'Edit Notes': props<{notes: Note[]}>(),
+    'Remove Notes': props<{noteIds: number[]}>(),
+    'Sync Notes': props<{noteIds: number[]}>(),
   }
 })
 
@@ -15,6 +15,6 @@ export const NotesApiActions = createActionGroup({
   source: 'Notes API',
   events: {
     'Retrieved Note List': props<{notes: ReadonlyArray<Note>}>(),
-    'Synced Note': props<{noteId: number}>()
+    'Synced Notes': props<{noteIds: number[]}>()
   }
 })

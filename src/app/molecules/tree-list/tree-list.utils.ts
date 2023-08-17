@@ -121,3 +121,20 @@ export function deepCopySerializableTree(tree: ITreeItem): ITreeItem {
   }
   return JSON.parse(JSON.stringify(tree));
 }
+
+export function buildTreePath(tree: ITreeItem, idPath: number[]): string {
+  if (!tree || !Array.isArray(idPath)) {
+    throw new Error('Invalid arguments');
+  }
+  const stringPath: string[] = [];
+  let currentNode = tree;
+
+  for (let id of idPath) {
+    const nextNode = currentNode.items?.[id];
+    if (!nextNode) throw new Error('Tree item not found');
+    stringPath.push(nextNode.name);
+    currentNode = nextNode;
+  }
+
+  return '/' + stringPath.join('/') + '/';
+}
