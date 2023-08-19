@@ -8,6 +8,7 @@ import {Store} from "@ngrx/store";
 import {NotesActions, NotesApiActions} from "../../store/notes.actions";
 import {selectNotes, selectNumOfNotes} from "../../store/notes.selectors";
 import {findTreeItem, mapPreTree} from "../../molecules/tree-list/tree-list.utils";
+import {TabsActions} from "../../store/tabs.actions";
 
 @Component({
   selector: 'app-notes-sidebar',
@@ -80,6 +81,7 @@ export class NotesSidebarComponent implements OnInit {
       text: ''
     }
     this.store.dispatch(NotesActions.addNotes({notes: [newNote]}))
+    this.store.dispatch(TabsActions.openNote({note: newNote, navbarId: 0}))
   }
 
   /**

@@ -10,6 +10,7 @@ import {filter} from "rxjs";
 import {NotesActions} from "../../store/notes.actions";
 import {mapPreTree} from "../tree-list/tree-list.utils";
 import {ConfirmModalComponent} from "../confirm-modal/confirm-modal.component";
+import {TabsActions} from "../../store/tabs.actions";
 
 @Component({
     selector: 'app-folder-context-menu',
@@ -202,9 +203,9 @@ export class FolderContextMenuComponent {
                 }
 
                 this.store.dispatch(NotesActions.addNotes({notes: [{...newNote}]}))
+                this.store.dispatch(TabsActions.openNote({note: newNote, navbarId: 0}))
             });
 
-        console.log('new note')
     }
 
     newFolder() {

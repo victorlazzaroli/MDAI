@@ -9,6 +9,7 @@ import {NotesActions} from "../../store/notes.actions";
 import {Store} from "@ngrx/store";
 import {selectNotes} from "../../store/notes.selectors";
 import {ConfirmModalComponent} from "../confirm-modal/confirm-modal.component";
+import {TabsActions} from "../../store/tabs.actions";
 
 @Component({
   selector: 'app-file-context-menu',
@@ -138,6 +139,9 @@ export class FileContextMenuComponent {
   }
 
   openNote() {
-    console.log('open note')
+    if (!this.note) {
+      return;
+    }
+    this.store.dispatch(TabsActions.openNote({note: this.note, navbarId: 0}));
   }
 }
