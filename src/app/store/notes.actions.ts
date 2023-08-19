@@ -7,7 +7,7 @@ export const NotesActions = createActionGroup({
     'Add Notes': props<{notes: Note[]}>(),
     'Edit Notes': props<{notes: Note[]}>(),
     'Remove Notes': props<{noteIds: number[]}>(),
-    'Sync Notes': props<{noteIds: number[]}>(),
+    'Sync Notes': props<{noteIds: number[]}>()
   }
 })
 

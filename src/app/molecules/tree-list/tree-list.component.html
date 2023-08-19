@@ -1,6 +1,7 @@
 <div>
   <div *ngFor="let item of tree?.items; let i = index" class="ms-4" [ngClass]="{'border-s-2 border-solid border-slate-600': item.type !== 'root'}">
-    <app-tree-item [item]="item" *ngIf="item.type !== 'root'" (itemClick)="itemClick($event, i)"></app-tree-item>
+<!--    <app-tree-item [item]="item" *ngIf="item.type !== 'root'" (itemClick)="itemClick($event, i)"></app-tree-item>-->
+    <app-tree-item [item]="item" *ngIf="item.type !== 'root'"></app-tree-item>
     <app-tree-list [tree]="item" *ngIf="item.type === 'folder' && item.expanded"></app-tree-list>
   </div>
 </div>

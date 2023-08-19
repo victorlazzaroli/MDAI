@@ -53,7 +53,7 @@ export function notesToTreeItem(notes: Note[], bookName: string = 'Notes'): ITre
                     type: 'file',
                     name: noteitem.title,
                     threeId: noteitem.threeId,
-                    arrayId: list.length,
+                    arrayId: noteitem.arrayId,
                     path: [...currentNode.path!, currentNode.items?.length || 0],
                     parentId: currentNode.threeId
                 }

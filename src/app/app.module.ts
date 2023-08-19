@@ -8,7 +8,7 @@ import { TabTitleComponent } from './molecules/tab-title/tab-title.component';
 
 import {
   matHomeSharp,
-  mat1kPlusSharp,
+  matAddSharp,
   matDoneSharp,
   matDeleteSharp,
   matEditNoteSharp,
@@ -51,10 +51,12 @@ import { FolderContextMenuComponent } from './molecules/folder-context-menu/fold
 import { InputModalComponent } from './molecules/input-modal/input-modal.component';
 import {FormsModule} from "@angular/forms";
 import { ConfirmModalComponent } from './molecules/confirm-modal/confirm-modal.component';
+import { TabNavbarComponent } from './organisms/tab-navbar/tab-navbar.component';
+import {tabsReducer} from "./store/tabs.reducer";
 
 const icons = {
   matHomeSharp,
-  mat1kPlusSharp,
+  matAddSharp,
   matDoneSharp,
   matDeleteSharp,
   matEditNoteSharp,
@@ -90,14 +92,15 @@ const icons = {
     FileContextMenuComponent,
     FolderContextMenuComponent,
     InputModalComponent,
-    ConfirmModalComponent
+    ConfirmModalComponent,
+    TabNavbarComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     NgIconsModule.withIcons(icons),
-    StoreModule.forRoot({notes: notesReducer}),
+    StoreModule.forRoot({notes: notesReducer, tabs: tabsReducer}),
     StoreDevtoolsModule.instrument({}),
     TippyDirective,
     FormsModule,

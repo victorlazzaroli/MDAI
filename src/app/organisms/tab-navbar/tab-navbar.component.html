@@ -1,0 +1,6 @@
+<div class="w-full flex justify-start max-w-full overflow-x-auto bg-slate-200">
+    <app-tab-title
+            *ngFor="let tab of (tabs$ | async)"
+            [tab]="tab"
+            [navbarId]="0"></app-tab-title>
+</div>

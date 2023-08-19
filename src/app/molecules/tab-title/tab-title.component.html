@@ -1,6 +1,11 @@
-<div class="flex items-center justify-between max-w-[25ch] rounded-t bg-slate-200 text-black dark:bg-slate-800 dark:text-slate-100 h-full py-1 px-2">
-  <div class="text-sm">{{title}}</div>
-  <div class="flex items-center justify-center">
-    <app-icon-button icon="matCloseSharp" size="extrasmall"></app-icon-button>
+<div class="flex items-center justify-start w-full max-w-[25ch] rounded-t bg-slate-200 text-black h-full py-1 px-2 overflow-hidden cursor-pointer"
+  [ngClass]="{'bg-slate-800 text-slate-200': tab?.open}"
+>
+  <div class="flex items-center justify-start flex-shrink overflow-hidden" (click)="click($event)">
+    <span class="block rounded-full w-[8px] h-[8px] me-1" [ngClass]="{'bg-green-600': tab?.note?.sync, 'bg-red-600': !tab?.note?.sync}"></span>
+    <div class="text-sm flex-grow overflow-hidden overflow-ellipsis whitespace-nowrap">{{tab?.note?.title}}</div>
+  </div>
+  <div class="flex items-center justify-center ms-1 flex-grow" (click)="close($event)">
+    <app-icon-button icon="matCloseSharp" size="extrasmall" ></app-icon-button>
   </div>
 </div>
