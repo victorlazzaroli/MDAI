@@ -6,7 +6,7 @@ import {Store} from "@ngrx/store";
 import {DialogService} from "@ngneat/dialog";
 import {selectNotes} from "../../store/notes.selectors";
 import {InputModalComponent} from "../input-modal/input-modal.component";
-import {filter} from "rxjs";
+import {filter, map} from "rxjs";
 import {NotesActions} from "../../store/notes.actions";
 import {mapPreTree} from "../tree-list/tree-list.utils";
 import {ConfirmModalComponent} from "../confirm-modal/confirm-modal.component";
@@ -59,7 +59,7 @@ export class FolderContextMenuComponent {
         });
 
         renameDialog.afterClosed$
-            .pipe(filter(result => !!result))
+            .pipe(filter(result => !!result), map(result => result!.endsWith('/') ? result : result + '/'))
             .subscribe(result => {
                 this.notes = this.notes.map(note => {
                     return {
@@ -92,16 +92,16 @@ export class FolderContextMenuComponent {
         });
 
         copyDialog.afterClosed$
-            .pipe(filter(result => !!result))
+            .pipe(filter(result => !!result), map(result => result!.endsWith('/') ? result : result + '/'))
             .subscribe(result => {
                 // const treePathArrayLen = this.folderItem.path?.length || 1;
                 const notesToCopy = this.notes.filter(note => {
                     // const separatedStrings = note.path.split('/').filter(str => !!str);
                     // return separatedStrings[treePathArrayLen - 1] === this.folderItem.name;
-                    return note.path.startsWith(this.folderPath);
+                    return note.path.startsWith(this.folderPath + this.folderItem.name);
                 }).map(newNote => {
-                    const separatedStrings = newNote.path.split(this.folderItem.name).filter(str => !!str);
-                    const newPath = [result!, this.folderItem.name, separatedStrings[1]].join('');
+                    const remainPath = newNote.path.split(this.folderPath + this.folderItem.name).filter(str => !!str);
+                    const newPath = [result!, this.folderItem.name, remainPath[0]].join('');
                     this.maxThreeId = this.maxThreeId + 1;
                     return {...newNote, path: newPath, threeId: this.maxThreeId}
                 })
@@ -128,16 +128,15 @@ export class FolderContextMenuComponent {
         });
 
         moveDialog.afterClosed$
-            .pipe(filter(result => !!result))
+            .pipe(filter(result => !!result), map(result => result!.endsWith('/') ? result : result + '/'))
             .subscribe(result => {
                 const notesToMove = this.notes.filter(note => {
-                    return note.path.startsWith(this.folderPath);
+                    return note.path.startsWith(this.folderPath + this.folderItem.name);
                 }).map(movingNote => {
-                    const separatedStrings = movingNote.path.split(this.folderItem.name).filter(str => !!str);
-                    return {...movingNote, path: [result!, this.folderItem.name, separatedStrings[1]].join('')};
+                    const remainPath = movingNote.path.split(this.folderPath + this.folderItem.name).filter(str => !!str);
+                    return {...movingNote, path: [result!, this.folderItem.name, remainPath[0]].join('')};
                 })
 
-                console.log(notesToMove);
 
                 if (Array.isArray(notesToMove)) {
                     this.store.dispatch(NotesActions.editNotes({notes: notesToMove}))
@@ -164,7 +163,7 @@ export class FolderContextMenuComponent {
             .pipe(filter(result => !!result))
             .subscribe(result => {
                 const notesToDelete = this.notes.filter(note => {
-                    return note.path.startsWith(this.folderPath);
+                    return note.path.startsWith(this.folderPath + this.folderItem.name);
                 }).map(deletingNote => {
                     return deletingNote.threeId
                 })
@@ -197,7 +196,7 @@ export class FolderContextMenuComponent {
                 const newNote: Note = {
                     threeId: this.maxThreeId,
                     title: !found ? result! : result! + ' ' + this.maxThreeId,
-                    path: this.folderPath,
+                    path: this.folderPath + this.folderItem.name + '/',
                     sync: false,
                     text: ''
                 }
@@ -237,7 +236,6 @@ export class FolderContextMenuComponent {
 
                 this.store.dispatch(NotesActions.addNotes({notes: [{...newNote}]}))
             });
-        console.log('new folder')
     }
 
     private replaceFolderNameInPath(notePath: string, parentIds: number[], oldFolderName: string, newFolderName: string): string {
@@ -255,7 +253,8 @@ export class FolderContextMenuComponent {
         for (let note of this.notes) {
             const separatedStrings = note.path.split('/').filter(str => !!str);
             if (separatedStrings[treePathArrayLen - 1] === this.folderItem.name) {
-                return note.path.split(this.folderItem.name)[0];
+                separatedStrings.pop();
+                return `/${separatedStrings.join('/')}/` ;
             }
         }
 
