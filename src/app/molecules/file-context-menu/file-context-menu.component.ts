@@ -133,6 +133,7 @@ export class FileContextMenuComponent {
         .pipe(filter(result => !!result))
         .subscribe(result => {
           if (this.note) {
+            this.store.dispatch(TabsActions.closeTabsByThreeId({threeIds: [this.note?.threeId!]}))
             this.store.dispatch(NotesActions.removeNotes({noteIds: [this.note?.threeId!]}))
           }
         });

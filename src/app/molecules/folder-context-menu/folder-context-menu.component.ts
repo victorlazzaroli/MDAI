@@ -168,6 +168,7 @@ export class FolderContextMenuComponent {
                     return deletingNote.threeId
                 })
                 if (notesToDelete) {
+                    this.store.dispatch(TabsActions.closeTabsByThreeId({threeIds: notesToDelete}))
                     this.store.dispatch(NotesActions.removeNotes({noteIds: notesToDelete}))
                 }
             });

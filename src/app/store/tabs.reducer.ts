@@ -41,5 +41,6 @@ export const tabsReducer = createReducer(
         return newState;
     } ),
     on(TabsActions.closeTabs, (_state, {tabIds, navbarId}) => _state.filter(elem => !tabIds.includes(elem.id) && elem.navbarId === navbarId) ),
-    on(TabsActions.selectTab, openTabReducer)
+    on(TabsActions.selectTab, openTabReducer),
+    on(TabsActions.closeTabsByThreeId,(_state, {threeIds}) => _state.filter(elem => !threeIds.includes(elem.note.threeId) ) )
 );
