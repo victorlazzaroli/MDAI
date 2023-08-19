@@ -53,6 +53,8 @@ import {FormsModule} from "@angular/forms";
 import { ConfirmModalComponent } from './molecules/confirm-modal/confirm-modal.component';
 import { TabNavbarComponent } from './organisms/tab-navbar/tab-navbar.component';
 import {tabsReducer} from "./store/tabs.reducer";
+import { EditorGridComponent } from './layouts/editor-grid/editor-grid.component';
+import { LogoComponent } from './atoms/logo/logo.component';
 
 const icons = {
   matHomeSharp,
@@ -93,7 +95,9 @@ const icons = {
     FolderContextMenuComponent,
     InputModalComponent,
     ConfirmModalComponent,
-    TabNavbarComponent
+    TabNavbarComponent,
+    EditorGridComponent,
+    LogoComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,28 @@
+<div class="parent w-full h-screen h-min-[600px] bg-slate-700">
+    <div class="border-solid border-[1px] border-slate-600">
+        <ng-content select="[logo]"></ng-content>
+    </div>
+    <div class="border-solid border-[1px] border-slate-600">
+        <ng-content select="[toolbar-nav]"></ng-content>
+    </div>
+    <div class="border-solid border-[1px] border-slate-600 border-b-slate-800">
+        <ng-content select="[toolbar-editor]"></ng-content>
+    </div>
+    <div class="border-solid border-[1px] border-slate-600">
+        <ng-content select="[sidebar-app]"></ng-content>
+    </div>
+    <div class="border-solid border-[1px] border-slate-600">
+        <ng-content select="[sidebar-editor]"></ng-content>
+    </div>
+    <div class="border-solid border-[1px] border-slate-600 bg-slate-800 border-t-slate-800">
+        <ng-content select="[editor]"></ng-content>
+    </div>
+    <div class="border-solid border-[1px] border-slate-600">
+    </div>
+    <div class="border-solid border-[1px] border-slate-600">
+        <ng-content select="[footer-nav]"></ng-content>
+    </div>
+    <div class="border-solid border-[1px] border-slate-600">
+        <ng-content select="[footer-editor]"></ng-content>
+    </div>
+</div>

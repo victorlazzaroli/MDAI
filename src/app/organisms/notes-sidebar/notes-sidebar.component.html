@@ -1,13 +1,13 @@
-<div class="flex flex-col w-full bg-slate-800 text-slate-100 h-full">
+<div class="flex flex-col w-full text-slate-100 h-full">
   <div class="flex justify-center items-center px-2 py-1 text-slate-200 gap-4">
     <app-icon-button size="small" icon="matEditNoteSharp" (click)="newNote()"></app-icon-button>
     <app-icon-button size="small" icon="matFolderOpenSharp" (click)="newFolder()"></app-icon-button>
     <app-icon-button size="small" icon="matSortSharp" (click)="sort()"></app-icon-button>
   </div>
-  <div>
+  <div class="overflow-auto">
     <strong class="ms-4">{{bookname}}</strong>
   </div>
-  <div class="flex-grow">
+  <div class="flex-grow overflow-auto">
     <app-tree-list [tree]="orderedTree$ | async"></app-tree-list>
   </div>
 </div>

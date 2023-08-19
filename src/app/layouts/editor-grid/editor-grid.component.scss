@@ -1,0 +1,7 @@
+.parent {
+  display: grid;
+  grid-template-columns: 48px 0.25fr 1fr;
+  grid-template-rows: 48px 1fr 48px;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+}
