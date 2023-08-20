@@ -16,7 +16,7 @@ function openTabReducer (_state: ReadonlyArray<TabModel>, {tabId, navbarId}: {ta
 
 function tabFromNoteBuilder(note: Note, numTabs: number, navbarId: number = 0, open: boolean = false): TabModel {
     return {
-        id: numTabs, navbarId: navbarId, note: note, open: false
+        id: numTabs, navbarId: navbarId, note: note, open: open
 
     }
 }
