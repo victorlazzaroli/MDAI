@@ -230,7 +230,7 @@ export class FolderContextMenuComponent {
                 const newNote: Note = {
                     threeId: this.maxThreeId,
                     title: 'New note ' + this.maxThreeId,
-                    path: this.folderPath + '/'+ this.folderItem.name + '/' + result! + '/',
+                    path: this.folderPath +  this.folderItem.name + '/' + result! + '/',
                     sync: false,
                     text: ''
                 }
@@ -245,7 +245,7 @@ export class FolderContextMenuComponent {
             separatedStrings[parentIds.length - 1] = newFolderName;
         }
 
-        return '/' + separatedStrings.join('/') + '/';
+        return `/${separatedStrings.join('/')}/` ;
     }
 
     private determineFolderPath(): string {
@@ -255,6 +255,9 @@ export class FolderContextMenuComponent {
             const separatedStrings = note.path.split('/').filter(str => !!str);
             if (separatedStrings[treePathArrayLen - 1] === this.folderItem.name) {
                 separatedStrings.pop();
+
+                if (separatedStrings.length === 0) return '/';
+
                 return `/${separatedStrings.join('/')}/` ;
             }
         }
