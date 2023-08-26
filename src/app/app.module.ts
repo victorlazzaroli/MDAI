@@ -55,6 +55,7 @@ import { TabNavbarComponent } from './organisms/tab-navbar/tab-navbar.component'
 import {tabsReducer} from "./store/tabs.reducer";
 import { EditorGridComponent } from './layouts/editor-grid/editor-grid.component';
 import { LogoComponent } from './atoms/logo/logo.component';
+import { EditorInputModeComponent } from './atoms/editor-input-mode/editor-input-mode.component';
 
 const icons = {
   matHomeSharp,
@@ -97,7 +98,8 @@ const icons = {
     ConfirmModalComponent,
     TabNavbarComponent,
     EditorGridComponent,
-    LogoComponent
+    LogoComponent,
+    EditorInputModeComponent
   ],
   imports: [
     BrowserModule,

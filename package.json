@@ -26,6 +26,9 @@
     "@ngrx/entity": "^16.1.0",
     "@ngrx/store": "^16.1.0",
     "@ngrx/store-devtools": "^16.1.0",
+    "marked": "^4.3.0",
+    "ngx-markdown": "^16.0.0",
+    "prismjs": "^1.29.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"
@@ -35,6 +38,7 @@
     "@angular/cli": "~16.1.7",
     "@angular/compiler-cli": "^16.1.0",
     "@types/jasmine": "~4.3.0",
+    "@types/marked": "^4.3.1",
     "autoprefixer": "^10.4.14",
     "jasmine-core": "~4.6.0",
     "karma": "~6.4.0",
