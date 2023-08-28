@@ -28,7 +28,9 @@ import {
   matFileCopySharp,
   matMoveDownSharp,
   matCreateNewFolderSharp,
-  matNoteAddSharp
+  matNoteAddSharp,
+  matImportContactsSharp,
+  matMenuBookSharp
 } from '@ng-icons/material-icons/sharp';
 import { TooltipComponent } from './atoms/tooltip/tooltip.component';
 import { TooltipDirective } from './shared/directives/tooltip.directive';
@@ -56,6 +58,9 @@ import {tabsReducer} from "./store/tabs.reducer";
 import { EditorGridComponent } from './layouts/editor-grid/editor-grid.component';
 import { LogoComponent } from './atoms/logo/logo.component';
 import { EditorInputModeComponent } from './atoms/editor-input-mode/editor-input-mode.component';
+import { EditorComponent } from './organisms/editor/editor.component';
+import { MdViewerComponent } from './atoms/md-viewer/md-viewer.component';
+import {MarkdownModule} from "ngx-markdown";
 
 const icons = {
   matHomeSharp,
@@ -79,7 +84,9 @@ const icons = {
   matFileCopySharp,
   matMoveDownSharp,
   matCreateNewFolderSharp,
-  matNoteAddSharp
+  matNoteAddSharp,
+  matImportContactsSharp,
+  matMenuBookSharp
 };
 
 @NgModule({
@@ -99,7 +106,9 @@ const icons = {
     TabNavbarComponent,
     EditorGridComponent,
     LogoComponent,
-    EditorInputModeComponent
+    EditorInputModeComponent,
+    EditorComponent,
+    MdViewerComponent
   ],
   imports: [
     BrowserModule,
@@ -107,6 +116,7 @@ const icons = {
     HttpClientModule,
     NgIconsModule.withIcons(icons),
     StoreModule.forRoot({notes: notesReducer, tabs: tabsReducer}),
+    MarkdownModule.forRoot(),
     StoreDevtoolsModule.instrument({}),
     TippyDirective,
     FormsModule,

@@ -1,4 +1,14 @@
-import {AfterViewInit, Component, ElementRef, EventEmitter, OnDestroy, Output, ViewChild} from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  ViewChild
+} from '@angular/core';
 import {debounceTime, fromEvent, Subscription} from "rxjs";
 
 @Component({
@@ -6,14 +16,23 @@ import {debounceTime, fromEvent, Subscription} from "rxjs";
   templateUrl: './editor-input-mode.component.html',
   styleUrls: ['./editor-input-mode.component.scss']
 })
-export class EditorInputModeComponent implements AfterViewInit, OnDestroy {
+export class EditorInputModeComponent implements AfterViewInit, OnDestroy, OnInit {
+
+  @Input()
+  data: string | undefined;
 
   @Output()
-  text: EventEmitter<string> = new EventEmitter<string>();
+  inputText: EventEmitter<string> = new EventEmitter<string>();
 
   @ViewChild('pre', { static: true }) pre: ElementRef | undefined;
 
   preSubscription: Subscription | undefined;
+  text: string | undefined;
+
+  ngOnInit() {
+    this.text = this.data;
+  }
+
   ngAfterViewInit() {
     this.preSubscription = fromEvent(this.pre?.nativeElement, 'input')
       .pipe(
@@ -26,7 +45,7 @@ export class EditorInputModeComponent implements AfterViewInit, OnDestroy {
   }
 
   showInput($event: any) {
-    this.text.emit($event?.target?.textContent);
+    this.inputText.emit($event?.target?.textContent);
     console.log($event?.target?.textContent)
   }
 }

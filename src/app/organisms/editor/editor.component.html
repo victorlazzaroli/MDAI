@@ -1,0 +1,25 @@
+<div class="w-full px-3 py-1">
+  <div class="w-full flex justify-between items-center">
+    <div>
+      <ng-container *ngFor="let pathItem of path; let i = index">
+        <span class="text-slate-400 mx-1" >{{pathItem}}</span>
+        <span class="text-slate-600" *ngIf="i < path.length - 1"> / </span>
+      </ng-container>
+    </div>
+    <div>
+      <app-icon-button icon="matImportContactsSharp" type="button" size="small" (click)="isViewMode = false" *ngIf="isViewMode"></app-icon-button>
+      <app-icon-button icon="matMenuBookSharp" type="button" size="small" (click)="isViewMode = true" *ngIf="!isViewMode"></app-icon-button>
+    </div>
+  </div>
+  <div class="w-full  h-full" >
+    <div class="my-5 mx-auto w-full max-w-4xl">
+      <input class="w-full outline-0 border-0 border-b-2 border-b-slate-600 border-b-solid bg-transparent text-slate-200 px-1 py-2 text-3xl font-medium" placeholder="Title" [(ngModel)]="fileTitle">
+    </div>
+    <div class="w-full max-w-4xl h-[calc(100vh-200px)] mx-auto overflow-auto border-2 border-solid border-red-600 text-slate-200">
+      <app-editor-input-mode [data]="inputText" (inputText)="setInputText($event)" *ngIf="!isViewMode" ></app-editor-input-mode>
+      <markdown *ngIf="isViewMode"
+        [data]="inputText">
+      </markdown>
+    </div>
+  </div>
+</div>
