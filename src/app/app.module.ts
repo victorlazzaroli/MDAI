@@ -61,6 +61,7 @@ import { EditorInputModeComponent } from './atoms/editor-input-mode/editor-input
 import { EditorComponent } from './organisms/editor/editor.component';
 import { MdViewerComponent } from './atoms/md-viewer/md-viewer.component';
 import {MarkdownModule} from "ngx-markdown";
+import { MainPageComponent } from './pages/main-page/main-page.component';
 
 const icons = {
   matHomeSharp,
@@ -108,7 +109,8 @@ const icons = {
     LogoComponent,
     EditorInputModeComponent,
     EditorComponent,
-    MdViewerComponent
+    MdViewerComponent,
+    MainPageComponent
   ],
   imports: [
     BrowserModule,
