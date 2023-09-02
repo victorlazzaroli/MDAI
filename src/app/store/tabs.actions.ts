@@ -8,6 +8,7 @@ export const TabsActions = createActionGroup({
         'Open Note': props<{note: Note, navbarId: number}>(),
         'Close Tabs': props<{tabIds: number[], navbarId: number}>(),
         'Close Tabs By ThreeId': props<{threeIds: number[]}>(),
-        'Select Tab': props<{tabId: number, navbarId: number}>()
+        'Select Tab': props<{tabId: number, navbarId: number}>(),
+        'Refresh Tab By ThreeId': props<{note: Note}>()
     }
 })

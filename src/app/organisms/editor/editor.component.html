@@ -11,15 +11,21 @@
       <app-icon-button icon="matMenuBookSharp" type="button" size="small" (click)="isViewMode = true" *ngIf="!isViewMode"></app-icon-button>
     </div>
   </div>
+
   <div class="w-full  h-full" >
-    <div class="my-5 mx-auto w-full max-w-4xl">
-      <input class="w-full outline-0 border-0 border-b-2 border-b-slate-600 border-b-solid bg-transparent text-slate-200 px-1 py-2 text-3xl font-medium" placeholder="Title" [(ngModel)]="fileTitle">
-    </div>
-    <div class="w-full max-w-4xl h-[calc(100vh-200px)] mx-auto overflow-auto border-2 border-solid border-slate-600 text-slate-200">
-      <app-editor-input-mode [data]="inputText" (inputText)="setInputText($event)" *ngIf="!isViewMode" ></app-editor-input-mode>
-      <markdown *ngIf="isViewMode"
-        [data]="inputText">
-      </markdown>
-    </div>
+    <ng-container *ngIf="currentNote" >
+      <div class="my-5 mx-auto w-full max-w-4xl">
+        <input class="w-full outline-0 border-0 border-b-2 border-b-slate-600 border-b-solid bg-transparent text-slate-200 px-1 py-2 text-3xl font-medium"
+               placeholder="Title"
+               [(ngModel)]="currentNote.note.title"
+               (ngModelChange)="updateNote()">
+      </div>
+      <div class="w-full max-w-4xl h-[calc(100vh-200px)] mx-auto overflow-auto border-2 border-solid border-slate-600 text-slate-200">
+        <app-editor-input-mode [data]="currentNote.note" (inputText)="setInputText($event)" *ngIf="!isViewMode" ></app-editor-input-mode>
+        <markdown *ngIf="isViewMode"
+          [data]="currentNote.note.text">
+        </markdown>
+      </div>
+    </ng-container>
   </div>
 </div>

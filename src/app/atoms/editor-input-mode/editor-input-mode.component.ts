@@ -10,16 +10,23 @@ import {
   ViewChild
 } from '@angular/core';
 import {debounceTime, fromEvent, Subscription} from "rxjs";
+import {Note} from "../../shared/models/note.model";
 
 @Component({
   selector: 'app-editor-input-mode',
   templateUrl: './editor-input-mode.component.html',
   styleUrls: ['./editor-input-mode.component.scss']
 })
-export class EditorInputModeComponent implements AfterViewInit, OnDestroy, OnInit {
+export class EditorInputModeComponent implements AfterViewInit, OnDestroy {
 
+  private _data: Note | undefined;
   @Input()
-  data: string | undefined;
+  set data(data: Note) {
+    if (data.threeId !== this._data?.threeId ){
+      this.text = data.text;
+    }
+    this._data = data;
+  };
 
   @Output()
   inputText: EventEmitter<string> = new EventEmitter<string>();
@@ -29,23 +36,14 @@ export class EditorInputModeComponent implements AfterViewInit, OnDestroy, OnIni
   preSubscription: Subscription | undefined;
   text: string | undefined;
 
-  ngOnInit() {
-    this.text = this.data;
-  }
-
   ngAfterViewInit() {
     this.preSubscription = fromEvent(this.pre?.nativeElement, 'input')
       .pipe(
         debounceTime(1000)
-      ).subscribe()
+      ).subscribe(($event: any) => this.inputText.emit($event?.target?.textContent))
   }
 
   ngOnDestroy() {
     this.preSubscription?.unsubscribe();
-  }
-
-  showInput($event: any) {
-    this.inputText.emit($event?.target?.textContent);
-    console.log($event?.target?.textContent)
   }
 }
