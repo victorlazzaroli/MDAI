@@ -30,7 +30,9 @@ import {
   matCreateNewFolderSharp,
   matNoteAddSharp,
   matImportContactsSharp,
-  matMenuBookSharp
+  matMenuBookSharp,
+  matSettingsSharp,
+  matFaceSharp
 } from '@ng-icons/material-icons/sharp';
 import { TooltipComponent } from './atoms/tooltip/tooltip.component';
 import { TooltipDirective } from './shared/directives/tooltip.directive';
@@ -62,6 +64,7 @@ import { EditorComponent } from './organisms/editor/editor.component';
 import { MdViewerComponent } from './atoms/md-viewer/md-viewer.component';
 import {MarkdownModule} from "ngx-markdown";
 import { MainPageComponent } from './pages/main-page/main-page.component';
+import { AppSidebarComponent } from './organisms/app-sidebar/app-sidebar.component';
 
 const icons = {
   matHomeSharp,
@@ -87,7 +90,9 @@ const icons = {
   matCreateNewFolderSharp,
   matNoteAddSharp,
   matImportContactsSharp,
-  matMenuBookSharp
+  matMenuBookSharp,
+  matSettingsSharp,
+  matFaceSharp
 };
 
 @NgModule({
@@ -110,7 +115,8 @@ const icons = {
     EditorInputModeComponent,
     EditorComponent,
     MdViewerComponent,
-    MainPageComponent
+    MainPageComponent,
+    AppSidebarComponent
   ],
   imports: [
     BrowserModule,
