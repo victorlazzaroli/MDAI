@@ -20,7 +20,7 @@ export class EditorComponent implements OnInit, OnDestroy{
 
   path: string[] = [];
   isViewMode: boolean = false;
-  currentNote: TabModel| undefined;
+  currentNote: TabModel | undefined | null;
 
   ngOnInit() {
     this.store.select(currentOpenTabs)
@@ -30,7 +30,10 @@ export class EditorComponent implements OnInit, OnDestroy{
         if (tab) {
           this.currentNote = {...tab};
           this.currentNote.note = {...tab.note}
-          this.path = this.currentNote.note.path.split('/').concat(this.currentNote.note.title)
+          this.path = this.currentNote.note.path.split('/').filter(str => !!str).concat(this.currentNote.note.title)
+        } else {
+          this.path = [];
+          this.currentNote = null;
         }
       }
     );

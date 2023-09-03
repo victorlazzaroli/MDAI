@@ -1,4 +1,4 @@
-<div class="w-full px-3 py-1">
+<div class="w-full px-3 py-1 h-full">
   <div class="w-full flex justify-between items-center">
     <div>
       <ng-container *ngFor="let pathItem of path; let i = index">
@@ -7,8 +7,8 @@
       </ng-container>
     </div>
     <div>
-      <app-icon-button icon="matImportContactsSharp" type="button" size="small" (click)="isViewMode = false" *ngIf="isViewMode"></app-icon-button>
-      <app-icon-button icon="matMenuBookSharp" type="button" size="small" (click)="isViewMode = true" *ngIf="!isViewMode"></app-icon-button>
+      <app-icon-button icon="matImportContactsSharp" type="button" size="small" (click)="isViewMode = false" *ngIf="isViewMode && currentNote"></app-icon-button>
+      <app-icon-button icon="matMenuBookSharp" type="button" size="small" (click)="isViewMode = true" *ngIf="!isViewMode && currentNote"></app-icon-button>
     </div>
   </div>
 
@@ -20,11 +20,16 @@
                [(ngModel)]="currentNote.note.title"
                (ngModelChange)="updateNote()">
       </div>
-      <div class="w-full max-w-4xl h-[calc(100vh-200px)] mx-auto overflow-auto border-2 border-solid border-slate-600 text-slate-200">
+      <div class="w-full max-w-4xl h-[calc(100vh-200px)] mx-auto overflow-auto text-slate-200">
         <app-editor-input-mode [data]="currentNote.note" (inputText)="setInputText($event)" *ngIf="!isViewMode" ></app-editor-input-mode>
         <markdown *ngIf="isViewMode"
           [data]="currentNote.note.text">
         </markdown>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="!currentNote">
+      <div class="w-full h-full flex justify-center items-center">
+        <span class="text-3xl text-slate-600">NOTE AI</span>
       </div>
     </ng-container>
   </div>
